@@ -1,7 +1,7 @@
 package com.fatesg.fashion_boot.service;
 
-import com.fatesg.fashion_boot.entity.Item_Ordered;
-import com.fatesg.fashion_boot.repository.Item_OrderedRepository;
+import com.fatesg.fashion_boot.entity.FormPayment;
+import com.fatesg.fashion_boot.repository.FormPaymentRepository;
 import com.fatesg.fashion_boot.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -13,26 +13,26 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class Item_orderedService {
+public class FormPaymentService {
 
-    final Item_OrderedRepository repository;
+    final FormPaymentRepository repository;
 
-    public Item_Ordered save(Item_Ordered ItemOrdered) {
-        ItemOrdered.setId(null);
-        return repository.save(ItemOrdered);
+    public FormPayment save(FormPayment form_payment) {
+        form_payment.setId(null);
+        return repository.save(form_payment);
     }
 
-    public Page<Item_Ordered> listAllPage(Pageable pageable) {
+    public Page<FormPayment> listAllPage(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
-    public List<Item_Ordered> listAll() {
+    public List<FormPayment> listAll() {
         return repository.findAll();
 
     }
 
 
-    public Item_Ordered findByIdOrThrowRequestException(Long id) {
+    public FormPayment findByIdOrThrowRequestException(Long id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Marca não localizada"));
 
     }
@@ -47,8 +47,8 @@ public class Item_orderedService {
         }
     }
 
-    public void replace(Item_Ordered objeto) {
-        Item_Ordered categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
+    public void replace(FormPayment objeto) {
+        FormPayment categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
         repository.save(categoriaSaved);
 
     }

@@ -1,24 +1,25 @@
 package com.fatesg.fashion_boot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Date;
+
 
 @Entity
 @Data
-public class Item_Ordered {
+public class Ordem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long amount;
+    private Date date_purchase;
+    private String status;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn
-    private Order order;
-
-    @ManyToOne
-    @JoinColumn
-    private Product product;
+    private Usuario usuario;
 
 }

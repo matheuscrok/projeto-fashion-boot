@@ -1,6 +1,6 @@
 package com.fatesg.fashion_boot.service;
 
-import com.fatesg.fashion_boot.entity.Order;
+import com.fatesg.fashion_boot.entity.Ordem;
 import com.fatesg.fashion_boot.repository.OrderRepository;
 import com.fatesg.fashion_boot.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -17,22 +17,22 @@ public class OrderService {
 
     final OrderRepository repository;
 
-    public Order save(Order order) {
-        order.setId(null);
-        return repository.save(order);
+    public Ordem save(Ordem ordem) {
+        ordem.setId(null);
+        return repository.save(ordem);
     }
 
-    public Page<Order> listAllPage(Pageable pageable) {
+    public Page<Ordem> listAllPage(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
-    public List<Order> listAll() {
+    public List<Ordem> listAll() {
         return repository.findAll();
 
     }
 
 
-    public Order findByIdOrThrowRequestException(Long id) {
+    public Ordem findByIdOrThrowRequestException(Long id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Marca não localizada"));
 
     }
@@ -47,8 +47,8 @@ public class OrderService {
         }
     }
 
-    public void replace(Order objeto) {
-        Order categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
+    public void replace(Ordem objeto) {
+        Ordem categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
         repository.save(categoriaSaved);
 
     }

@@ -33,7 +33,6 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    //@PreAuthorize("hasRole('USER')")
     public ResponseEntity<Category> findById(@PathVariable Long id){
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
     }

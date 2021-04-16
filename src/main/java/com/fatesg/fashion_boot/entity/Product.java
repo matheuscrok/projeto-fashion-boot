@@ -1,5 +1,6 @@
 package com.fatesg.fashion_boot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class Product {
     private String gender;
     private String size;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn
     private Category category;

@@ -6,24 +6,19 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class User {
+public class ItemOrdered {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String mail;
-    private String password;
-    private String type;
-    private String phone;
+    private Long amount;
 
     @ManyToOne
     @JoinColumn
-    private Form_Payment form_payment;
-
+    private Ordem ordem;
 
     @ManyToOne
     @JoinColumn
-    private Address address;
+    private Product product;
 
 }

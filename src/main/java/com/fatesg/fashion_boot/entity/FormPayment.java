@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class Form_Payment {
+public class FormPayment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

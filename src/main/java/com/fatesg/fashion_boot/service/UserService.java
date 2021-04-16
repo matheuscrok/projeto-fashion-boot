@@ -1,6 +1,6 @@
 package com.fatesg.fashion_boot.service;
 
-import com.fatesg.fashion_boot.entity.User;
+import com.fatesg.fashion_boot.entity.Usuario;
 import com.fatesg.fashion_boot.repository.UserRepository;
 import com.fatesg.fashion_boot.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -17,21 +17,21 @@ public class UserService {
 
     final UserRepository repository;
 
-    public User save(User user) {
-        user.setId(null);
-        return repository.save(user);
+    public Usuario save(Usuario usuario) {
+        usuario.setId(null);
+        return repository.save(usuario);
     }
 
-    public Page<User> listAllPage(Pageable pageable) {
+    public Page<Usuario> listAllPage(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
-    public List<User> listAll() {
+    public List<Usuario> listAll() {
         return repository.findAll();
 
     }
 
-    public User findByIdOrThrowRequestException(Long id) {
+    public Usuario findByIdOrThrowRequestException(Long id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Marca não localizada"));
 
     }
@@ -46,8 +46,8 @@ public class UserService {
         }
     }
 
-    public void replace(User objeto) {
-        User categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
+    public void replace(Usuario objeto) {
+        Usuario categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
         repository.save(categoriaSaved);
 
     }
