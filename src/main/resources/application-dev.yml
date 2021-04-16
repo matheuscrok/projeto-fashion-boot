@@ -1,4 +1,3 @@
-
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/fashionboot?createDatabaseIfNotExist=true
@@ -6,4 +5,4 @@ spring:
     username: root
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none

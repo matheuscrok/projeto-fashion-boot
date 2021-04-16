@@ -33,7 +33,7 @@ public class CityService {
 
 
     public City findByIdOrThrowRequestException(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Marca não localizada"));
+        return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("cidade não localizada"));
 
     }
 
