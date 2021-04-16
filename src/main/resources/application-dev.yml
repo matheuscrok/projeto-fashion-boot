@@ -3,6 +3,12 @@ spring:
     url: jdbc:mysql://localhost:3306/fashionboot?createDatabaseIfNotExist=true
     password: root
     username: root
+    data: classpath:data.sql
+    schema: classpath:data.sql
+    initialization-mode: always
+    platform: mysql
+
+
   jpa:
     hibernate:
       ddl-auto: none
