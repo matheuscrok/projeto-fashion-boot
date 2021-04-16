@@ -1,11 +1,11 @@
 package com.fatesg.fashion_boot.repository;
 
-import com.fatesg.fashion_boot.entity.Brand;
+import com.fatesg.fashion_boot.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BrandRepository extends JpaRepository<Brand, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    Brand findByName(String name);
+ 
 }
