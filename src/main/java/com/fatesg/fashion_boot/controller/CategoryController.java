@@ -1,7 +1,7 @@
 package com.fatesg.fashion_boot.controller;
 
-import com.fatesg.fashion_boot.entity.Categoria;
-import com.fatesg.fashion_boot.service.CategoriaService;
+import com.fatesg.fashion_boot.entity.Category;
+import com.fatesg.fashion_boot.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/categorias")
 @RequiredArgsConstructor
-public class CategoriaController {
+public class CategoryController {
 
-    final CategoriaService service;
+    final CategoryService service;
 
     @PostMapping
-    public ResponseEntity<Categoria> save(@RequestBody Categoria objeto){
+    public ResponseEntity<Category> save(@RequestBody Category objeto){
         return new ResponseEntity<>(service.save(objeto), HttpStatus.CREATED);
 
     }
