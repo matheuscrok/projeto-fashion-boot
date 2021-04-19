@@ -17,7 +17,8 @@ public class Product {
     private String name;
     private String description;
     private String detail;
-    private Float price;
+    private Float consPrice;
+    private Float salePrice;
     private String img;
     private String gender;
     private String size;
