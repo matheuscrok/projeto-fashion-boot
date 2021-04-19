@@ -1,5 +1,6 @@
 package com.fatesg.fashion_boot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class Category {
     private Long id;
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     List<Product> productList = new ArrayList<>();
 
