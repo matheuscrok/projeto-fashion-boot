@@ -12,6 +12,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
     private Float price;
     private String photo;
     private String gender;
@@ -22,6 +23,7 @@ public class Product {
     @JoinColumn
     private Category category;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn
     private Brand brand;
