@@ -7,8 +7,6 @@ spring:
 #    schema: classpath:data.sql
 #    initialization-mode: always
     platform: mysql
-
-
   jpa:
     hibernate:
       ddl-auto: update
