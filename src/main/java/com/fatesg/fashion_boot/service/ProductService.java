@@ -53,4 +53,8 @@ public class ProductService {
 
     }
 
+    public List<Product> findProductsByCategoryName(String name){
+        return repository.findProductByCategoryName(name);
+    }
+
 }

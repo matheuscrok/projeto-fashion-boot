@@ -2,7 +2,6 @@ package com.fatesg.fashion_boot.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,20 +25,18 @@ public class Product {
     private Boolean inStock;
 
 
-
     @OneToMany(mappedBy = "product")
     List<GalleryImages> gallery = new ArrayList<>();
-
 
     @OneToMany(mappedBy = "product")
     List<Options> options = new ArrayList<>();
 
-   // @JsonIgnore
+    // @JsonIgnore
     @ManyToOne
     @JoinColumn
     private Category category;
 
-  //  @JsonIgnore
+    // @JsonIgnore
     @ManyToOne
     @JoinColumn
     private Brand brand;
@@ -47,10 +44,9 @@ public class Product {
 
 }
 
-
 @Entity
 @Data
-class GalleryImages{
+class GalleryImages {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,13 +59,11 @@ class GalleryImages{
     @JoinColumn
     private Product product;
 
-
-
 }
 
 @Entity
 @Data
-class Options{
+class Options {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

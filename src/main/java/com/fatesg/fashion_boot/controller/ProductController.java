@@ -48,5 +48,11 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/categoria/{name}")
+    public ResponseEntity<List<Product>> listProductsByCatId(@PathVariable String name){
+        return ResponseEntity.ok(service.findProductsByCategoryName(name));
+    }
+
+
 
 }
