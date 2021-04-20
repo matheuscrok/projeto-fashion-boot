@@ -52,7 +52,7 @@ public class CategoryService {
 
     public void replace(Category objeto) {
         Category categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
-        repository.save(categoriaSaved);
+        repository.save(objeto);
 
     }
 

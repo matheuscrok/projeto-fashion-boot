@@ -48,7 +48,7 @@ public class UserService {
 
     public void replace(Usuario objeto) {
         Usuario categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
-        repository.save(categoriaSaved);
+        repository.save(objeto);
 
     }
 

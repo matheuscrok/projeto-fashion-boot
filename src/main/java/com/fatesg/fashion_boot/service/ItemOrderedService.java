@@ -49,7 +49,7 @@ public class ItemOrderedService {
 
     public void replace(ItemOrdered objeto) {
         ItemOrdered categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
-        repository.save(categoriaSaved);
+        repository.save(objeto);
 
     }
 

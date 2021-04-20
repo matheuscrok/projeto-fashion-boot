@@ -49,7 +49,7 @@ public class AddressService {
 
     public void replace(Address objeto) {
         Address categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
-        repository.save(categoriaSaved);
+        repository.save(objeto);
 
     }
 

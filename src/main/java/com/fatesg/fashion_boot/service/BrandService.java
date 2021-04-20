@@ -54,7 +54,7 @@ public class BrandService {
 
     public void replace(Brand objeto) {
         Brand categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
-        repository.save(categoriaSaved);
+        repository.save(objeto);
 
     }
 

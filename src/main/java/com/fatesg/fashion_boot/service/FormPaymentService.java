@@ -49,7 +49,7 @@ public class FormPaymentService {
 
     public void replace(FormPayment objeto) {
         FormPayment categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
-        repository.save(categoriaSaved);
+        repository.save(objeto);
 
     }
 

@@ -49,7 +49,7 @@ public class CityService {
 
     public void replace(City objeto) {
         City categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
-        repository.save(categoriaSaved);
+        repository.save(objeto);
 
     }
 

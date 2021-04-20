@@ -48,8 +48,8 @@ public class ProductService {
     }
 
     public void replace(Product objeto) {
-        Product categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
-        repository.save(categoriaSaved);
+        findByIdOrThrowRequestException(objeto.getId());
+        repository.save(objeto);
 
     }
 

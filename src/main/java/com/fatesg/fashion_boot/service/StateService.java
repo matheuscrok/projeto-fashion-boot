@@ -49,7 +49,7 @@ public class StateService {
 
     public void replace(State objeto) {
         State categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
-        repository.save(categoriaSaved);
+        repository.save(objeto);
 
     }
 
