@@ -2,6 +2,8 @@ package com.fatesg.fashion_boot.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,10 @@ public class Product {
     private String detail;
     private Float consPrice;
     private Float salePrice;
+
+    @Length(min = 3, max = 1000000)
     private String img;
+
     private String gender;
     private String size;
     private Boolean onSale;
