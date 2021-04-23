@@ -1,4 +1,4 @@
-package com.fatesg.fashion_boot.config;
+package com.fatesg.fashion_boot.config.minIO;
 
 import io.minio.MinioClient;
 import org.springframework.beans.factory.annotation.Value;
