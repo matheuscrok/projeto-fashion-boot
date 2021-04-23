@@ -30,10 +30,10 @@ public class Product {
     private Boolean inStock;
 
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.ALL})
     List<GalleryImages> gallery = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.ALL})
     List<Options> options = new ArrayList<>();
 
     // @JsonIgnore
@@ -49,38 +49,3 @@ public class Product {
 
 }
 
-@Entity
-@Data
-class GalleryImages {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn
-    private Product product;
-
-}
-
-@Entity
-@Data
-class Options {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-
-    private String value;
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn
-    private Product product;
-
-}

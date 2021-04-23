@@ -1,11 +1,11 @@
 package com.fatesg.fashion_boot.repository;
 
-import com.fatesg.fashion_boot.entity.Address;
+import com.fatesg.fashion_boot.entity.GalleryImages;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AddressRepository extends JpaRepository<Address, Long> {
+public interface GalleryImagesRepository extends JpaRepository<GalleryImages, Long> {
 
  
 }

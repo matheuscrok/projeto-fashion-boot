@@ -1,5 +1,7 @@
 package com.fatesg.fashion_boot.service;
 
+import com.fatesg.fashion_boot.entity.GalleryImages;
+import com.fatesg.fashion_boot.entity.Options;
 import com.fatesg.fashion_boot.entity.Product;
 import com.fatesg.fashion_boot.repository.ProductRepository;
 import com.fatesg.fashion_boot.service.exception.ObjectNotFoundException;
@@ -18,7 +20,12 @@ public class ProductService {
     final ProductRepository repository;
 
     public Product save(Product product) {
-        product.setId(null);
+        for (Options opt : product.getOptions()){
+            opt.setProduct(product);
+        }
+        for (GalleryImages images : product.getGallery()){
+             images.setProduct(product);
+        }
         return repository.save(product);
     }
 
@@ -48,8 +55,12 @@ public class ProductService {
     }
 
     public void replace(Product objeto) {
-        findByIdOrThrowRequestException(objeto.getId());
-        repository.save(objeto);
+       try{
+           findByIdOrThrowRequestException(objeto.getId());
+           repository.save(objeto);
+       }catch (Exception e){
+           System.out.println(e.getMessage());
+       }
 
     }
 

@@ -1,7 +1,7 @@
 package com.fatesg.fashion_boot.service;
 
-import com.fatesg.fashion_boot.entity.Address;
-import com.fatesg.fashion_boot.repository.AddressRepository;
+import com.fatesg.fashion_boot.entity.GalleryImages;
+import com.fatesg.fashion_boot.repository.GalleryImagesRepository;
 import com.fatesg.fashion_boot.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -13,26 +13,26 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AddressService {
+public class GalleryimagesService {
 
-    final AddressRepository repository;
+    final GalleryImagesRepository repository;
 
-    public Address save(Address address) {
-        address.setId(null);
-        return repository.save(address);
+    public GalleryImages save(GalleryImages galleryImages) {
+        galleryImages.setId(null);
+        return repository.save(galleryImages);
     }
 
-    public Page<Address> listAllPage(Pageable pageable) {
+    public Page<GalleryImages> listAllPage(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
-    public List<Address> listAll() {
+    public List<GalleryImages> listAll() {
         return repository.findAll();
 
     }
 
 
-    public Address findByIdOrThrowRequestException(Long id) {
+    public GalleryImages findByIdOrThrowRequestException(Long id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Marca não localizada"));
 
     }
@@ -47,8 +47,8 @@ public class AddressService {
         }
     }
 
-    public void replace(Address objeto) {
-        Address categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
+    public void replace(GalleryImages objeto) {
+        GalleryImages categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
         repository.save(objeto);
 
     }

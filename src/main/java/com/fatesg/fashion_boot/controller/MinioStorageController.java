@@ -1,5 +1,7 @@
 package com.fatesg.fashion_boot.controller;
 
+import com.fatesg.fashion_boot.entity.GalleryImages;
+import com.fatesg.fashion_boot.entity.Product;
 import com.fatesg.fashion_boot.service.MinioAdapter;
 import io.minio.messages.Bucket;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,6 @@ public class MinioStorageController {
     @Autowired
     MinioAdapter minioAdapter;
 
-
     @Value("${minio.url}")
     private String url;
 
@@ -42,8 +43,8 @@ public class MinioStorageController {
 
     @PostMapping(path = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public String uploadFile(@RequestPart(value = "file", required = false) MultipartFile files) throws IOException {
-
         minioAdapter.uploadFile(files.getOriginalFilename(), files.getBytes());
+
         Map<String, String> result = new HashMap<>();
         result.put("key", files.getOriginalFilename());
         result.put("url", this.url);

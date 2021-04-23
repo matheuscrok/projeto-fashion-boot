@@ -1,7 +1,7 @@
 package com.fatesg.fashion_boot.controller;
 
-import com.fatesg.fashion_boot.entity.Address;
-import com.fatesg.fashion_boot.service.AddressService;
+import com.fatesg.fashion_boot.entity.Options;
+import com.fatesg.fashion_boot.service.OptionsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,29 +10,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/address")
+@RequestMapping("/options")
 @RequiredArgsConstructor
-public class AddressController {
+public class OptionsController {
 
-    final AddressService service;
+    final OptionsService service;
 
     @PostMapping
-    public ResponseEntity<Address> save(@RequestBody Address objeto){
+    public ResponseEntity<Options> save(@RequestBody Options objeto){
         return new ResponseEntity<>(service.save(objeto), HttpStatus.CREATED);
     }
     @GetMapping("/page")
-    public ResponseEntity<Page<Address>> listPage(Pageable pageable){
+    public ResponseEntity<Page<Options>> listPage(Pageable pageable){
         return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
     }
     @GetMapping
-    public ResponseEntity<List<Address>> list(){
+    public ResponseEntity<List<Options>> list(){
         return ResponseEntity.ok(service.listAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Address> findById(@PathVariable Long id){
+    public ResponseEntity<Options> findById(@PathVariable Long id){
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
     }
     
@@ -43,7 +44,7 @@ public class AddressController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Address obj){
+    public ResponseEntity<Void> replace(@RequestBody Options obj){
         service.replace(obj);
         return ResponseEntity.noContent().build();
     }
