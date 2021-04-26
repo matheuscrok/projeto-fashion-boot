@@ -7,6 +7,9 @@ spring:
 #    schema: classpath:data.sql
 #    initialization-mode: always
     platform: mysql
+    driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
+
+

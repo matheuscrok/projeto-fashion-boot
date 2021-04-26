@@ -31,6 +31,12 @@ public class ProductService {
 
     public Page<Product> listAllPage(Pageable pageable) {
         return repository.findAll(pageable);
+       // return repository.findByName(name, pageable);
+    }
+
+    public Page<Product> listAllPageName(String name, Pageable pageable) {
+//        return repository.findAll(pageable);
+        return repository.findByName(name, pageable);
     }
 
     public List<Product> listAll() {

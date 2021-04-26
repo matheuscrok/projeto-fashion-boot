@@ -16,19 +16,20 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Length(min = 3, max = 1000)
     private String description;
+    @Length(min = 3, max = 5000)
     private String detail;
     private Float consPrice;
     private Float salePrice;
 
-    @Length(min = 3, max = 1000000)
+    @Length(min = 3, max = 5000)
     private String img;
 
     private String gender;
-    private String size;
+   // private String size;
     private Boolean onSale;
     private Boolean inStock;
-
 
     @OneToMany(mappedBy = "product", cascade = {CascadeType.ALL})
     List<GalleryImages> gallery = new ArrayList<>();
