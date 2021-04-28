@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +49,7 @@ public class ProductController {
      */
 
     @PostMapping
-    public ResponseEntity<Product> save(@RequestBody Product objeto){
+    public ResponseEntity<Product> save(@Valid @RequestBody Product objeto){
         return new ResponseEntity<>(service.save(objeto), HttpStatus.CREATED);
     }
 //    @GetMapping("/page")

@@ -61,6 +61,12 @@ public class ProductService {
     }
 
     public void replace(Product objeto) {
+        for (Options opt : objeto.getOptions()){
+            opt.setProduct(objeto);
+        }
+        for (GalleryImages images : objeto.getGallery()){
+            images.setProduct(objeto);
+        }
        try{
            findByIdOrThrowRequestException(objeto.getId());
            repository.save(objeto);

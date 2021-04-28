@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/files")
 public class MinioStorageController {
@@ -41,10 +42,9 @@ public class MinioStorageController {
         return minioAdapter.getAllBuckets();
     }
 
-    @PostMapping(path = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public String uploadFile(@RequestPart(value = "file", required = false) MultipartFile files) throws IOException {
+    @PostMapping(path = "/upload")
+    public String uploadFile(@RequestParam("file")  MultipartFile files) throws IOException {
         minioAdapter.uploadFile(files.getOriginalFilename(), files.getBytes());
-
         Map<String, String> result = new HashMap<>();
         result.put("key", files.getOriginalFilename());
         result.put("url", this.url);
