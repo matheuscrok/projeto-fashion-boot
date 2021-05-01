@@ -3,12 +3,16 @@ package com.fatesg.fashion_boot.controller;
 import com.fatesg.fashion_boot.entity.GalleryImages;
 import com.fatesg.fashion_boot.entity.Product;
 import com.fatesg.fashion_boot.service.MinioAdapter;
+import com.fatesg.fashion_boot.service.ProductService;
 import io.minio.messages.Bucket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.Timed;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +27,8 @@ import java.util.Map;
 public class MinioStorageController {
     @Autowired
     MinioAdapter minioAdapter;
+    @Autowired
+    ProductService productService;
 
     @Value("${minio.url}")
     private String url;
@@ -51,6 +57,21 @@ public class MinioStorageController {
         result.put("bucket", this.bucket);
         String url = this.url + "/" + this.bucket + "/%20" + files.getOriginalFilename();
         return url;
+    }
+
+    @RequestMapping(value = "/update",
+            method = RequestMethod.POST,
+            consumes = {"multipart/form-data"},
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed(millis = 0L)
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=false)
+    public void updateProductAndFile(@RequestPart(value = "file") MultipartFile file,
+                                     @RequestPart(value = "produto") Product produto) throws IOException {
+        minioAdapter.uploadFile(file.getOriginalFilename(), file.getBytes());
+        String url = this.url + "/" + this.bucket + "/%20" + file.getOriginalFilename();
+        produto.setImg(url);
+        productService.save(produto);
+
     }
 
     @GetMapping(path = "/download")
