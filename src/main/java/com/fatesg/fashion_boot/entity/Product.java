@@ -16,14 +16,14 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Length(min = 3, max = 1000)
+ //   @Length(min = 3, max = 1000)
     private String description;
-    @Length(min = 3, max = 5000)
+ //   @Length(min = 3, max = 5000)
     private String detail;
     private Float consPrice;
     private Float salePrice;
 
-    @Length(min = 3, max = 5000)
+//    @Length(min = 3, max = 5000)
     private String img;
 
     private String gender;
