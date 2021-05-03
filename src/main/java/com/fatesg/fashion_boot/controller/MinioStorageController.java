@@ -4,6 +4,7 @@ import com.fatesg.fashion_boot.entity.GalleryImages;
 import com.fatesg.fashion_boot.entity.Product;
 import com.fatesg.fashion_boot.service.MinioAdapter;
 import com.fatesg.fashion_boot.service.ProductService;
+import com.google.api.client.util.Lists;
 import io.minio.messages.Bucket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,7 +66,7 @@ public class MinioStorageController {
     @Transactional(propagation= Propagation.REQUIRED, readOnly=false)
     public void updateProductAndFile(@RequestPart(value = "file") MultipartFile[] file,
                                      @RequestPart(value = "produto") Product produto) throws IOException {
-
+        List<GalleryImages> listaDeImagens = new ArrayList<>();
         for (int i = 0; i < file.length; i++) {
             if(i == 0){
                 minioAdapter.uploadFile(file[i].getOriginalFilename(), file[i].getBytes());
@@ -76,11 +77,12 @@ public class MinioStorageController {
             }else{
                 minioAdapter.uploadFile(file[i].getOriginalFilename(), file[i].getBytes());
                 String url = this.url + "" + this.bucket + "/%20" + file[i].getOriginalFilename();
-                produto.setGallery(List.of(new GalleryImages(null, url, null)));
+                listaDeImagens.add(new GalleryImages(null, url, null));
 
             }
 
         }
+        produto.setGallery(listaDeImagens);
         productService.save(produto);
 
 
