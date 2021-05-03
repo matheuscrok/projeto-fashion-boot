@@ -13,13 +13,14 @@ public class ItemOrdered {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long quantity;
 
+    @ManyToOne
+    @JoinColumn
+    private Product product;
 
     @ManyToOne
     @JoinColumn
     private Ordem ordem;
-
-    @OneToMany(mappedBy = "itemOrdered")
-    private List<Product> product = new ArrayList<>();
 
 }
