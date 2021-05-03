@@ -1,8 +1,12 @@
 package com.fatesg.fashion_boot.controller;
 
 import com.fatesg.fashion_boot.entity.Ordem;
+import com.fatesg.fashion_boot.service.AddressService;
+import com.fatesg.fashion_boot.service.FormPaymentService;
 import com.fatesg.fashion_boot.service.OrderService;
+import com.fatesg.fashion_boot.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -10,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/orders")
@@ -17,6 +22,10 @@ import java.util.List;
 public class OrderController {
 
     final OrderService service;
+    FormPaymentService formPaymentService;
+    AddressService addressService;
+    UserService userService;
+
 
     @PostMapping
     public ResponseEntity<Ordem> save(@RequestBody Ordem objeto){
@@ -47,6 +56,8 @@ public class OrderController {
         service.replace(obj);
         return ResponseEntity.noContent().build();
     }
+
+
 
 
 

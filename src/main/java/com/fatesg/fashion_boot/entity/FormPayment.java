@@ -14,6 +14,7 @@ public class FormPayment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String holderName;
     private String number;
     private String flag;
     private String cvv;

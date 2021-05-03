@@ -32,7 +32,7 @@ public class UserService {
     }
 
     public Usuario findByIdOrThrowRequestException(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Marca não localizada"));
+        return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Usuario não localizado"));
 
     }
 
