@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @CrossOrigin("*")
 @RestController
@@ -55,7 +53,7 @@ public class MinioStorageController {
         result.put("key", files.getOriginalFilename());
         result.put("url", this.url);
         result.put("bucket", this.bucket);
-        String url = this.url + "/" + this.bucket + "/%20" + files.getOriginalFilename();
+        String url = this.url + "" + this.bucket + "/%20" + files.getOriginalFilename();
         return url;
     }
 
@@ -65,12 +63,27 @@ public class MinioStorageController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed(millis = 0L)
     @Transactional(propagation= Propagation.REQUIRED, readOnly=false)
-    public void updateProductAndFile(@RequestPart(value = "file") MultipartFile file,
+    public void updateProductAndFile(@RequestPart(value = "file") MultipartFile[] file,
                                      @RequestPart(value = "produto") Product produto) throws IOException {
-        minioAdapter.uploadFile(file.getOriginalFilename(), file.getBytes());
-        String url = this.url + "/" + this.bucket + "/%20" + file.getOriginalFilename();
-        produto.setImg(url);
+
+        for (int i = 0; i < file.length; i++) {
+            if(i == 0){
+                minioAdapter.uploadFile(file[i].getOriginalFilename(), file[i].getBytes());
+                String url = this.url + "" + this.bucket + "/%20" + file[i].getOriginalFilename();
+                produto.setImg(url);
+
+
+            }else{
+                minioAdapter.uploadFile(file[i].getOriginalFilename(), file[i].getBytes());
+                String url = this.url + "" + this.bucket + "/%20" + file[i].getOriginalFilename();
+                produto.setGallery(List.of(new GalleryImages(null, url, null)));
+
+            }
+
+        }
         productService.save(produto);
+
+
 
     }
 

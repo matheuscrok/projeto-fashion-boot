@@ -47,6 +47,11 @@ public class Product {
     @JoinColumn
     private Brand brand;
 
+    // @JsonIgnore
+    @ManyToOne
+    @JoinColumn
+    private ItemOrdered itemOrdered;
+
 
 }
 

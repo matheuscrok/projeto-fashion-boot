@@ -3,6 +3,8 @@ package com.fatesg.fashion_boot.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,8 +19,7 @@ public class ItemOrdered {
     @JoinColumn
     private Ordem ordem;
 
-    @ManyToOne
-    @JoinColumn
-    private Product product;
+    @OneToMany(mappedBy = "itemOrdered")
+    private List<Product> product = new ArrayList<>();
 
 }
