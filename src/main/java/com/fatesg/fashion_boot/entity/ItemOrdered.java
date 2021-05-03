@@ -13,7 +13,7 @@ public class ItemOrdered {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long amount;
+
 
     @ManyToOne
     @JoinColumn

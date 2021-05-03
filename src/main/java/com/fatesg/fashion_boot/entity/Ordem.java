@@ -16,6 +16,7 @@ public class Ordem {
     private Long id;
     private Date date_purchase;
     private String status;
+    private Long amount;
 
     @JsonIgnore
     @ManyToOne
