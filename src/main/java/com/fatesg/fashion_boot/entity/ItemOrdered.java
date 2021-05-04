@@ -1,5 +1,6 @@
 package com.fatesg.fashion_boot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,10 +16,12 @@ public class ItemOrdered {
     private Long id;
     private Long quantity;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn
     private Product product;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn
     private Ordem ordem;

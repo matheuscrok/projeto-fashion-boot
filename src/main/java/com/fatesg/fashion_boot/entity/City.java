@@ -13,7 +13,7 @@ public class City {
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private State state;
 }

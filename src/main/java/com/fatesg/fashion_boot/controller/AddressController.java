@@ -19,8 +19,8 @@ public class AddressController {
     final AddressService service;
 
     @PostMapping
-    public ResponseEntity<Address> save(@RequestBody Address objeto){
-        return new ResponseEntity<>(service.save(objeto), HttpStatus.CREATED);
+    public ResponseEntity<Address> save(@RequestBody Address address){
+        return new ResponseEntity<>(service.save(address), HttpStatus.CREATED);
     }
     @GetMapping("/page")
     public ResponseEntity<Page<Address>> listPage(Pageable pageable){
