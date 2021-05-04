@@ -8,7 +8,11 @@ import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.Timed;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -60,11 +64,15 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/compra",
-    method = RequestMethod.POST)
+    method = RequestMethod.POST,
+            consumes = {"multipart/form-data"},
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed(millis = 0L)
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=false)
     public ResponseEntity<Ordem> compra(@RequestPart(value = "formPayment")FormPayment formPayment,
                                        @RequestPart(value = "address")Address address,
                                        @RequestPart(value = "usuario") Usuario usuario,
-                                       @RequestPart(value = "itemOrdered")ItemOrdered[] itemOrdered,
+                                       @RequestPart(value = "itemOrdered") ItemOrdered[] itemOrdered,
                                        @RequestPart(value = "ordem")Ordem ordem){
 
         FormPayment paymentSave = this.formPaymentService.save(formPayment);

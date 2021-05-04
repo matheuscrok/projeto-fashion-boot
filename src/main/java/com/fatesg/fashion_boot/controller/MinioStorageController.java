@@ -50,10 +50,6 @@ public class MinioStorageController {
     @PostMapping(path = "/upload")
     public String uploadFile(@RequestParam("file")  MultipartFile files) throws IOException {
         minioAdapter.uploadFile(files.getOriginalFilename(), files.getBytes());
-        Map<String, String> result = new HashMap<>();
-        result.put("key", files.getOriginalFilename());
-        result.put("url", this.url);
-        result.put("bucket", this.bucket);
         String url = this.url + "" + this.bucket + "/%20" + files.getOriginalFilename();
         return url;
     }
