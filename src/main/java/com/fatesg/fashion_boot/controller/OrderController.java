@@ -33,6 +33,8 @@ public class OrderController {
     final AddressService addressService;
     final UserService userService;
     final ItemOrderedService itemOrderedService;
+    final StateService stateService;
+    final CityService cityService;
 
 
     @PostMapping
@@ -78,10 +80,12 @@ public class OrderController {
                                        @RequestPart(value = "usuario") Usuario usuario,
                                        @RequestPart(value = "itemOrdered") ItemOrdered[] itemOrdered,
                                        @RequestPart(value = "ordem")Ordem ordem){
-
-
         FormPayment paymentSave = this.formPaymentService.save(formPayment);
+        State stateSaved = stateService.findByIdOrThrowRequestException(1L);
+        City citySaved = cityService.findByIdOrThrowRequestException(1L);
+        citySaved.setState(stateSaved);
         Address adressSave = this.addressService.save(address);
+        adressSave.setCity(citySaved);
         usuario.setAddress(adressSave);
         usuario.setForm_payment(paymentSave);
         Usuario usuarioSave = this.userService.save(usuario);
