@@ -2,6 +2,8 @@ package com.fatesg.fashion_boot.controller;
 
 import com.fatesg.fashion_boot.entity.*;
 import com.fatesg.fashion_boot.service.*;
+import com.fatesg.fashion_boot.util.DateUtil;
+import com.google.api.client.util.DateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.weaver.ast.Or;
@@ -15,6 +17,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +91,10 @@ public class OrderController {
             listaDeCarinho.add(itemOrderedSave);
         }
         ordem.setItemOrdered(listaDeCarinho);
+        ordem.setUsuario(usuarioSave);
+
+        ordem.setDate_purchase(new Date(new java.util.Date().getTime()));
+        ordem.setStatus("Pendente");
         Ordem ordemSave = this.orderService.save(ordem);
 
         return ResponseEntity.ok().body(ordemSave);
