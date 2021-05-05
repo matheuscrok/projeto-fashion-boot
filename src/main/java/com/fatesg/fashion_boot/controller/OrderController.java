@@ -64,7 +64,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/compra",
-    method = RequestMethod.POST,
+            method = RequestMethod.POST,
             consumes = {"multipart/form-data"},
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed(millis = 0L)
@@ -74,6 +74,7 @@ public class OrderController {
                                        @RequestPart(value = "usuario") Usuario usuario,
                                        @RequestPart(value = "itemOrdered") ItemOrdered[] itemOrdered,
                                        @RequestPart(value = "ordem")Ordem ordem){
+
 
         FormPayment paymentSave = this.formPaymentService.save(formPayment);
         Address adressSave = this.addressService.save(address);

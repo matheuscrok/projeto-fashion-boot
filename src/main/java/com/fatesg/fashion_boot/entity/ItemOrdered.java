@@ -20,7 +20,7 @@ public class ItemOrdered {
     private Long id;
     private Long quantity;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn
     private Product product;
