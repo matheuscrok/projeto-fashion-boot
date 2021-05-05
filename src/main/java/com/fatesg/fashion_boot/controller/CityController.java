@@ -31,11 +31,18 @@ public class CityController {
         return ResponseEntity.ok(service.listAll());
     }
 
+    @GetMapping("/state/{name}")
+    public ResponseEntity<List<City>> listAllByStateName(@PathVariable String name){
+    return ResponseEntity.ok(service.listAllByStateName(name));
+
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<City> findById(@PathVariable Long id){
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
     }
-    
+
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);

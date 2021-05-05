@@ -31,6 +31,10 @@ public class CityService {
 
     }
 
+    public List<City> listAllByStateName(String name){
+        return repository.findAllByStateName(name);
+    }
+
 
     public City findByIdOrThrowRequestException(Long id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("cidade não localizada"));
@@ -52,5 +56,7 @@ public class CityService {
         repository.save(objeto);
 
     }
+
+
 
 }
