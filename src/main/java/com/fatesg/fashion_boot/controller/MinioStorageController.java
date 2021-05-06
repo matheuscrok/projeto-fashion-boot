@@ -48,7 +48,7 @@ public class MinioStorageController {
     }
 
     @PostMapping(path = "/upload")
-    public String uploadFile(@RequestParam("file")  MultipartFile files) throws IOException {
+    public String uploadFile(@RequestParam("file") MultipartFile files) throws IOException {
         minioAdapter.uploadFile(files.getOriginalFilename(), files.getBytes());
         String url = this.url + "" + this.bucket + "/%20" + files.getOriginalFilename();
         return url;
@@ -59,18 +59,18 @@ public class MinioStorageController {
             consumes = {"multipart/form-data"},
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed(millis = 0L)
-    @Transactional(propagation= Propagation.REQUIRED, readOnly=false)
-    public void updateProductAndFile(@RequestPart(value = "file") MultipartFile[] file,
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void createFileAndProduct(@RequestPart(value = "file") MultipartFile[] file,
                                      @RequestPart(value = "produto") Product produto) throws IOException {
         List<GalleryImages> listaDeImagens = new ArrayList<>();
         for (int i = 0; i < file.length; i++) {
-            if(i == 0){
+            if (i == 0) {
                 minioAdapter.uploadFile(file[i].getOriginalFilename(), file[i].getBytes());
                 String url = this.url + "" + this.bucket + "/%20" + file[i].getOriginalFilename();
                 produto.setImg(url);
 
 
-            }else{
+            } else {
                 minioAdapter.uploadFile(file[i].getOriginalFilename(), file[i].getBytes());
                 String url = this.url + "" + this.bucket + "/%20" + file[i].getOriginalFilename();
                 listaDeImagens.add(new GalleryImages(null, url, null));
@@ -81,6 +81,40 @@ public class MinioStorageController {
         produto.setGallery(listaDeImagens);
         productService.save(produto);
 
+
+    }
+
+    @RequestMapping(value = "/update",
+            method = RequestMethod.PUT,
+            consumes = {"multipart/form-data"},
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed(millis = 0L)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void updateFileAndProduct(@RequestPart(value = "file", required = false) MultipartFile[] file,
+                                     @RequestPart(value = "produto") Product produto) throws IOException {
+
+
+        if (file != null) {
+            List<GalleryImages> listaDeImagens = new ArrayList<>();
+            for (int i = 0; i < file.length; i++) {
+                if (i == 0) {
+                    minioAdapter.uploadFile(file[i].getOriginalFilename(), file[i].getBytes());
+                    String url = this.url + "" + this.bucket + "/%20" + file[i].getOriginalFilename();
+                    produto.setImg(url);
+
+
+                } else {
+                    minioAdapter.uploadFile(file[i].getOriginalFilename(), file[i].getBytes());
+                    String url = this.url + "" + this.bucket + "/%20" + file[i].getOriginalFilename();
+                    listaDeImagens.add(new GalleryImages(null, url, null));
+
+
+                }
+            }
+            produto.setGallery(listaDeImagens);
+        }
+
+        productService.replace(produto);
 
 
     }

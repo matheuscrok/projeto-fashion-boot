@@ -47,6 +47,14 @@ public class OptionsService {
         }
     }
 
+    public void deleteAllByProductId(Long id){
+        try {
+            repository.deleteAllByProductId(id);
+        }catch (DataIntegrityViolationException e){
+            throw new DataIntegrityViolationException("Não é posssivel apagar, pois está associada a uma pessoa");
+        }
+    }
+
     public void replace(Options objeto) {
         Options categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
         repository.save(objeto);

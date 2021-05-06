@@ -21,7 +21,7 @@ public class GalleryImages {
     private String name;
 
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn
     private Product product;
 

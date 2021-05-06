@@ -1,41 +1,44 @@
 package com.fatesg.fashion_boot.controller;
 
-import com.fatesg.fashion_boot.entity.Options;
-import com.fatesg.fashion_boot.service.OptionsService;
+import com.fatesg.fashion_boot.entity.GalleryImages;
+import com.fatesg.fashion_boot.service.GalleryImagesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/options")
+@RequestMapping("/galleryImages")
 @RequiredArgsConstructor
-public class OptionsController {
+public class GalleryImagesController {
 
-    final OptionsService service;
+    final GalleryImagesService service;
 
     @PostMapping
-    public ResponseEntity<Options> save(@RequestBody Options objeto){
-        return new ResponseEntity<>(service.save(objeto), HttpStatus.CREATED);
+    public ResponseEntity<GalleryImages> save(@RequestBody GalleryImages galleryImages){
+        return new ResponseEntity<>(service.save(galleryImages), HttpStatus.CREATED);
     }
     @GetMapping("/page")
-    public ResponseEntity<Page<Options>> listPage(Pageable pageable){
+    public ResponseEntity<Page<GalleryImages>> listPage(Pageable pageable){
         return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
     }
     @GetMapping
-    public ResponseEntity<List<Options>> list(){
+    public ResponseEntity<List<GalleryImages>> list(){
         return ResponseEntity.ok(service.listAll());
     }
 
+   @GetMapping("/produto/{id}")
+    public ResponseEntity<List<GalleryImages>> listAllByProductId(@PathVariable Long id){
+        return ResponseEntity.ok(service.listAllByProductId(id));
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Options> findById(@PathVariable Long id){
+    public ResponseEntity<GalleryImages> findById(@PathVariable Long id){
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
     }
     
@@ -45,15 +48,8 @@ public class OptionsController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(path = "/product/{id}")
-    @Transactional
-    public ResponseEntity<Void> deleteAllByProductId(@PathVariable Long id){
-        service.deleteAllByProductId(id);
-        return ResponseEntity.noContent().build();
-    }
-
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Options obj){
+    public ResponseEntity<Void> replace(@RequestBody GalleryImages obj){
         service.replace(obj);
         return ResponseEntity.noContent().build();
     }

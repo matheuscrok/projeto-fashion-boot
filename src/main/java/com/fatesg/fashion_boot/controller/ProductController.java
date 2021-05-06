@@ -2,11 +2,10 @@ package com.fatesg.fashion_boot.controller;
 
 import com.fatesg.fashion_boot.entity.GalleryImages;
 import com.fatesg.fashion_boot.entity.Product;
-import com.fatesg.fashion_boot.service.GalleryimagesService;
+import com.fatesg.fashion_boot.service.GalleryImagesService;
 import com.fatesg.fashion_boot.service.MinioAdapter;
 import com.fatesg.fashion_boot.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +29,7 @@ import java.util.Map;
 public class ProductController {
 
     final ProductService service;
-    final GalleryimagesService galleryimagesService;
+    final GalleryImagesService galleryimagesService;
 
 
     final MinioAdapter minioAdapter;

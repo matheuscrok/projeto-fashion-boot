@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GalleryimagesService {
+public class GalleryImagesService {
 
     final GalleryImagesRepository repository;
 
@@ -32,6 +32,12 @@ public class GalleryimagesService {
     }
 
 
+    public List<GalleryImages> listAllByProductId(Long id) {
+        return repository.findAllByProductId(id);
+
+    }
+
+
     public GalleryImages findByIdOrThrowRequestException(Long id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Marca não localizada"));
 
@@ -43,7 +49,7 @@ public class GalleryimagesService {
         try {
             repository.deleteById(id);
         }catch (DataIntegrityViolationException e){
-            throw new DataIntegrityViolationException("Não é posssivel apagar, pois está associada a uma pessoa");
+            throw new DataIntegrityViolationException("Não é posssivel apagar, pois está associada a um produto");
         }
     }
 

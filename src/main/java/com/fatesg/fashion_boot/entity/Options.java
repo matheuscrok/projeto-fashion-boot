@@ -19,7 +19,7 @@ public class Options {
     private String value;
 
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn
     private Product product;
 

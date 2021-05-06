@@ -56,7 +56,7 @@ public class ProductService {
         try {
             repository.deleteById(id);
         }catch (DataIntegrityViolationException e){
-            throw new DataIntegrityViolationException("Não é posssivel apagar, pois está associada a uma pessoa");
+            throw new DataIntegrityViolationException("Não é posssivel apagar, pois está associada a uma ordem de compra");
         }
     }
 
