@@ -20,11 +20,11 @@ public class Ordem {
     private String status;
     private Float totalPrice;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "ordem")
     List<ItemOrdered> itemOrdered = new ArrayList<>();
 
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn
     private Usuario usuario;

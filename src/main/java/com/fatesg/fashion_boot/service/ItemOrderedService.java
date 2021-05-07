@@ -32,6 +32,12 @@ public class ItemOrderedService {
     }
 
 
+    public List<ItemOrdered> listAllByOrdemId(Long id) {
+        return repository.findItemOrderedByOrdemId(id);
+
+    }
+
+
     public ItemOrdered findByIdOrThrowRequestException(Long id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Marca não localizada"));
 

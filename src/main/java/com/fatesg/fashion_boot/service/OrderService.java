@@ -1,5 +1,6 @@
 package com.fatesg.fashion_boot.service;
 
+import com.fatesg.fashion_boot.entity.Brand;
 import com.fatesg.fashion_boot.entity.Ordem;
 import com.fatesg.fashion_boot.repository.OrderRepository;
 import com.fatesg.fashion_boot.service.exception.ObjectNotFoundException;
@@ -30,6 +31,12 @@ public class OrderService {
         return repository.findAll();
 
     }
+
+    public Page<Ordem> listAllPageName(String name, Pageable pageable) {
+//        return repository.findAll(pageable);
+        return repository.findByName(name, pageable);
+    }
+
 
 
     public Ordem findByIdOrThrowRequestException(Long id) {

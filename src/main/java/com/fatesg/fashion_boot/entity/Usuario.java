@@ -1,5 +1,6 @@
 package com.fatesg.fashion_boot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class Usuario {
     @JoinColumn
     private Address address;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario")
     private List<Ordem> ordemList = new ArrayList<>();
 
