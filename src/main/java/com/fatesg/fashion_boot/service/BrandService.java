@@ -1,6 +1,7 @@
 package com.fatesg.fashion_boot.service;
 
 import com.fatesg.fashion_boot.entity.Brand;
+import com.fatesg.fashion_boot.entity.Product;
 import com.fatesg.fashion_boot.repository.BrandRepository;
 import com.fatesg.fashion_boot.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,12 @@ public class BrandService {
 
     }
 
+    public Page<Brand> listAllPageName(String name, Pageable pageable) {
+//        return repository.findAll(pageable);
+        return repository.findByName(name, pageable);
+    }
+
+
     public Brand findByName(String name) {
         return repository.findByName(name);
 
@@ -48,7 +55,8 @@ public class BrandService {
         try {
             repository.deleteById(id);
         }catch (DataIntegrityViolationException e){
-            throw new DataIntegrityViolationException("Não é posssivel apagar, pois está associada a um produto");
+            throw new com.fatesg.fashion_boot.service.exception.DataIntegrityViolationException("Não é posssivel apagar, pois está associada a um Produto");
+
         }
     }
 
