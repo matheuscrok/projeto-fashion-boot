@@ -37,7 +37,6 @@ public class AddressService {
 
     }
 
-
     public void delete(Long id) {
         findByIdOrThrowRequestException(id);
         try {
