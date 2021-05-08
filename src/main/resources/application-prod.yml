@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:mysql://65e005203b65.sn.mynetname.net:3306/fashionboot?createDatabaseIfNotExist=true
+    username: root
+    password: "@cme2000"
+    platform: mysql
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8081
+
