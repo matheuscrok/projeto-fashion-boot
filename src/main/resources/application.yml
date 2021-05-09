@@ -1,0 +1,21 @@
+keycloak:
+  auth-server-url: http://201.24.191.222:8080/auth
+  bearer-only: true
+  credentials:
+    secret: fdbf5f45-eff3-4e3a-b0b0-2259e5d9433d
+  realm: fashionboot
+  resource: fashionboot
+  ssl-required: none
+  use-resource-role-mappings: true
+minio:
+  access:
+    name: minioadmin
+    secret: minioadmin
+  buckek:
+    name: imagens
+  default:
+    folder: '/'
+  url: http://65e005203b65.sn.mynetname.net:9001/
+spring:
+  profiles:
+    active: dev

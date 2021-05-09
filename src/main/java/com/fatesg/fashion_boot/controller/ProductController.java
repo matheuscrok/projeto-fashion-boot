@@ -13,9 +13,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.HashMap;
@@ -63,6 +65,7 @@ public class ProductController {
 
         return ResponseEntity.ok(service.listAllPageName(name, pageable)); //animes?size=5&page=2 - 2 pode mudar
     }
+   // @RolesAllowed("user")
     @GetMapping
     public ResponseEntity<List<Product>> list(){
         return ResponseEntity.ok(service.listAll());
