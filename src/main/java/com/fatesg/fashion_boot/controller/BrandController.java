@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 @CrossOrigin("*")
 @RestController
@@ -32,6 +33,7 @@ public class BrandController {
 
         return ResponseEntity.ok(service.listAllPageName(name, pageable)); //animes?size=5&page=2 - 2 pode mudar
     }
+    @RolesAllowed("user")
     @GetMapping
     public ResponseEntity<List<Brand>> list(){
         return ResponseEntity.ok(service.listAll());

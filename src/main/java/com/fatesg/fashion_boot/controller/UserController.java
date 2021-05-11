@@ -3,11 +3,14 @@ package com.fatesg.fashion_boot.controller;
 import com.fatesg.fashion_boot.entity.Usuario;
 import com.fatesg.fashion_boot.service.UserService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+
 
 import java.util.List;
 @CrossOrigin("*")
@@ -18,10 +21,12 @@ public class UserController {
 
     final UserService service;
 
+
     @PostMapping
     public ResponseEntity<Usuario> save(@RequestBody Usuario objeto){
         return new ResponseEntity<>(service.save(objeto), HttpStatus.CREATED);
     }
+
     @GetMapping("/page")
     public ResponseEntity<Page<Usuario>> listPage(Pageable pageable){
         return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
