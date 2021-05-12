@@ -60,7 +60,7 @@ class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 .antMatchers("/brands/*")
                 .hasRole("USER")
                 .antMatchers(HttpMethod.DELETE,"/galleryImages/*")
-                .hasAnyRole("ADMIN")
+                .hasRole("ADMIN")
                 .anyRequest()
                 .permitAll();
     }
