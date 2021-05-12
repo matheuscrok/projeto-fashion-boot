@@ -50,18 +50,19 @@ public class ProductController {
      */
 
     @PostMapping
-    public ResponseEntity<Product> save(@Valid @RequestBody Product objeto){
+    public ResponseEntity<Product> save(@Valid @RequestBody Product objeto) {
         return new ResponseEntity<>(service.save(objeto), HttpStatus.CREATED);
     }
-//    @GetMapping("/page")
+
+    //    @GetMapping("/page")
 //    public ResponseEntity<Page<Product>> listPage(Pageable pageable){
 //        return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
 //    }
-
+    @RolesAllowed("ADMIN")
     @GetMapping(value = "/page")
-    public ResponseEntity<Page<Product>> listPage(@Param(value = "name") String name, Pageable pageable){
-        if(name == ""){
-          return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
+    public ResponseEntity<Page<Product>> listPage(@Param(value = "name") String name, Pageable pageable) {
+        if (name == "") {
+            return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
         }
 
         return ResponseEntity.ok(service.listAllPageName(name, pageable)); //animes?size=5&page=2 - 2 pode mudar
@@ -69,36 +70,38 @@ public class ProductController {
 
 
     @GetMapping
-    public ResponseEntity<List<Product>> list(){
+    public ResponseEntity<List<Product>> list() {
         return ResponseEntity.ok(service.listAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id){
+    public ResponseEntity<Product> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
     }
-    
+
+    @RolesAllowed("ADMIN")
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    @RolesAllowed("ADMIN")
     @PutMapping
-    public ResponseEntity<Product> replace(@RequestBody Product obj){
+    public ResponseEntity<Product> replace(@RequestBody Product obj) {
         service.replace(obj);
         return ResponseEntity.ok().body(obj);
     }
 
     @GetMapping("/categoria/{name}")
-    public ResponseEntity<List<Product>> listProductsByCatId(@PathVariable String name){
+    public ResponseEntity<List<Product>> listProductsByCatId(@PathVariable String name) {
         return ResponseEntity.ok(service.findProductsByCategoryName(name));
     }
 
-
+    @RolesAllowed("ADMIN")
     @PostMapping(path = "/salvarfoto", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<GalleryImages> salvarFoto(@RequestPart(value = "file", required = false) MultipartFile files,
-                                                    @RequestParam (value = "product_id") Long product_id) throws IOException {
+                                                    @RequestParam(value = "product_id") Long product_id) throws IOException {
         minioAdapter.uploadFile(files.getOriginalFilename(), files.getBytes());
 
         Map<String, String> result = new HashMap<>();

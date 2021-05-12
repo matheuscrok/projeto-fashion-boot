@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -20,37 +21,42 @@ public class CategoryController {
 
     final CategoryService service;
 
+    @RolesAllowed("ADMIN")
     @PostMapping
-    public ResponseEntity<Category> save(@RequestBody Category objeto){
+    public ResponseEntity<Category> save(@RequestBody Category objeto) {
         return new ResponseEntity<>(service.save(objeto), HttpStatus.CREATED);
     }
+
     @GetMapping("/page")
-    public ResponseEntity<Page<Category>> listPage(Pageable pageable){
+    public ResponseEntity<Page<Category>> listPage(Pageable pageable) {
         return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
     }
+
     @GetMapping
-    public ResponseEntity<List<Category>> list(){
+    public ResponseEntity<List<Category>> list() {
         return ResponseEntity.ok(service.listAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> findById(@PathVariable Long id){
+    public ResponseEntity<Category> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
     }
 
     @GetMapping("/find")  //   /find?name={oque voce digitou para procurar}  - name é a variavel aqui em baixo
-    public ResponseEntity<Category> findByName(@RequestParam String name){
+    public ResponseEntity<Category> findByName(@RequestParam String name) {
         return ResponseEntity.ok(service.findByName(name));
     }
-    
+
+    @RolesAllowed("ADMIN")
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    @RolesAllowed("ADMIN")
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Category obj){
+    public ResponseEntity<Void> replace(@RequestBody Category obj) {
         service.replace(obj);
         return ResponseEntity.noContent().build();
     }

@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/address")
@@ -18,32 +20,36 @@ public class AddressController {
 
     final AddressService service;
 
+    @RolesAllowed({"USER", "ADMIN"})
     @PostMapping
-    public ResponseEntity<Address> save(@RequestBody Address address){
+    public ResponseEntity<Address> save(@RequestBody Address address) {
         return new ResponseEntity<>(service.save(address), HttpStatus.CREATED);
     }
+
+    @RolesAllowed("ADMIN")
     @GetMapping("/page")
-    public ResponseEntity<Page<Address>> listPage(Pageable pageable){
+    public ResponseEntity<Page<Address>> listPage(Pageable pageable) {
         return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
     }
+
     @GetMapping
-    public ResponseEntity<List<Address>> list(){
+    public ResponseEntity<List<Address>> list() {
         return ResponseEntity.ok(service.listAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Address> findById(@PathVariable Long id){
+    public ResponseEntity<Address> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
     }
-    
+
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Address obj){
+    public ResponseEntity<Void> replace(@RequestBody Address obj) {
         service.replace(obj);
         return ResponseEntity.noContent().build();
     }

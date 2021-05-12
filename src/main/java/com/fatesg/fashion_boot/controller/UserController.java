@@ -11,8 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/usuarios")
@@ -21,34 +22,40 @@ public class UserController {
 
     final UserService service;
 
-
+    @RolesAllowed("ADMIN")
     @PostMapping
-    public ResponseEntity<Usuario> save(@RequestBody Usuario objeto){
+    public ResponseEntity<Usuario> save(@RequestBody Usuario objeto) {
         return new ResponseEntity<>(service.save(objeto), HttpStatus.CREATED);
     }
 
+    @RolesAllowed("ADMIN")
     @GetMapping("/page")
-    public ResponseEntity<Page<Usuario>> listPage(Pageable pageable){
+    public ResponseEntity<Page<Usuario>> listPage(Pageable pageable) {
         return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
     }
+
+    @RolesAllowed("ADMIN")
     @GetMapping
-    public ResponseEntity<List<Usuario>> list(){
+    public ResponseEntity<List<Usuario>> list() {
         return ResponseEntity.ok(service.listAll());
     }
 
+    @RolesAllowed({"ADMIN", "USER"})
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> findById(@PathVariable Long id){
+    public ResponseEntity<Usuario> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
     }
-    
+
+    @RolesAllowed("ADMIN")
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    @RolesAllowed("ADMIN")
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Usuario obj){
+    public ResponseEntity<Void> replace(@RequestBody Usuario obj) {
         service.replace(obj);
         return ResponseEntity.noContent().build();
     }

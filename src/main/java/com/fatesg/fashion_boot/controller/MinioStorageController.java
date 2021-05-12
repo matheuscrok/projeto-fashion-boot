@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.security.RolesAllowed;
 import java.io.IOException;
 import java.util.*;
 
@@ -41,12 +42,13 @@ public class MinioStorageController {
     /**
      * login password
      */
-
+    @RolesAllowed("ADMIN")
     @GetMapping(path = "/buckets")
     public List<Bucket> listBuckets() {
         return minioAdapter.getAllBuckets();
     }
 
+    @RolesAllowed("ADMIN")
     @PostMapping(path = "/upload")
     public String uploadFile(@RequestParam("file") MultipartFile files) throws IOException {
         minioAdapter.uploadFile(files.getOriginalFilename(), files.getBytes());
@@ -54,6 +56,7 @@ public class MinioStorageController {
         return url;
     }
 
+    @RolesAllowed("ADMIN")
     @RequestMapping(value = "/update",
             method = RequestMethod.POST,
             consumes = {"multipart/form-data"},
@@ -84,6 +87,7 @@ public class MinioStorageController {
 
     }
 
+    @RolesAllowed("ADMIN")
     @RequestMapping(value = "/update",
             method = RequestMethod.PUT,
             consumes = {"multipart/form-data"},
@@ -119,6 +123,7 @@ public class MinioStorageController {
 
     }
 
+    @RolesAllowed("ADMIN")
     @GetMapping(path = "/download")
     public ResponseEntity<ByteArrayResource> uploadFile(@RequestParam(value = "file") String file) throws IOException {
         byte[] data = minioAdapter.getFile(file);

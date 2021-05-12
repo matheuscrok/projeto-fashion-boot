@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,13 +39,15 @@ public class OrderController {
     final CityService cityService;
 
 
+    @RolesAllowed("USER")
     @PostMapping
     public ResponseEntity<Ordem> save(@RequestBody Ordem objeto) {
         return new ResponseEntity<>(orderService.save(objeto), HttpStatus.CREATED);
     }
 
+    @RolesAllowed({"ADMIN", "USER"})
     @GetMapping("/page")
-    public ResponseEntity<Page<Ordem>> listPage(@Param(value = "name") String name, Pageable pageable){
+    public ResponseEntity<Page<Ordem>> listPage(@Param(value = "name") String name, Pageable pageable) {
 //        if(name.equals("")){
 //            return ResponseEntity.ok(orderService.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
 //        }
@@ -57,39 +60,44 @@ public class OrderController {
 //        return ResponseEntity.ok(orderService.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
 //    }
 
+    @RolesAllowed("ADMIN")
     @GetMapping
     public ResponseEntity<List<Ordem>> list() {
         return ResponseEntity.ok(orderService.listAll());
     }
 
+    @RolesAllowed({"ADMIN", "USER"})
     @GetMapping("/{id}")
     public ResponseEntity<Ordem> findById(@PathVariable Long id) {
         return ResponseEntity.ok(orderService.findByIdOrThrowRequestException(id));
     }
 
+    @RolesAllowed("ADMIN")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         orderService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    @RolesAllowed("ADMIN")
     @PutMapping
     public ResponseEntity<Void> replace(@RequestBody Ordem obj) {
         orderService.replace(obj);
         return ResponseEntity.noContent().build();
     }
 
+    @RolesAllowed({"ADMIN", "USER"})
     @RequestMapping(value = "/compra",
             method = RequestMethod.POST,
             consumes = {"multipart/form-data"},
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed(millis = 0L)
-    @Transactional(propagation= Propagation.REQUIRED, readOnly=false)
-    public ResponseEntity<Ordem> compra(@RequestPart(value = "formPayment")FormPayment formPayment,
-                                       @RequestPart(value = "address")Address address,
-                                       @RequestPart(value = "usuario") Usuario usuario,
-                                       @RequestPart(value = "itemOrdered") ItemOrdered[] itemOrdered,
-                                       @RequestPart(value = "ordem")Ordem ordem){
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public ResponseEntity<Ordem> compra(@RequestPart(value = "formPayment") FormPayment formPayment,
+                                        @RequestPart(value = "address") Address address,
+                                        @RequestPart(value = "usuario") Usuario usuario,
+                                        @RequestPart(value = "itemOrdered") ItemOrdered[] itemOrdered,
+                                        @RequestPart(value = "ordem") Ordem ordem) {
         FormPayment paymentSave = this.formPaymentService.save(formPayment);
         State stateSaved = stateService.findByIdOrThrowRequestException(1L);
         City citySaved = cityService.findByIdOrThrowRequestException(1L);
@@ -100,7 +108,7 @@ public class OrderController {
         usuario.setForm_payment(paymentSave);
         Usuario usuarioSave = this.userService.save(usuario);
         List<ItemOrdered> listaDeCarinho = new ArrayList<>();
-        for(ItemOrdered item : itemOrdered){
+        for (ItemOrdered item : itemOrdered) {
             ItemOrdered itemOrderedSave = this.itemOrderedService.save(item);
             listaDeCarinho.add(itemOrderedSave);
         }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/brands")
@@ -21,13 +22,16 @@ public class BrandController {
 
     final BrandService service;
 
+    @RolesAllowed("ADMIN")
     @PostMapping
-    public ResponseEntity<Brand> save(@RequestBody Brand objeto){
+    public ResponseEntity<Brand> save(@RequestBody Brand objeto) {
         return new ResponseEntity<>(service.save(objeto), HttpStatus.CREATED);
     }
+
+    @RolesAllowed("ADMIN")
     @GetMapping("/page")
-    public ResponseEntity<Page<Brand>> listPage(@Param(value = "name") String name, Pageable pageable){
-        if(name.equals("")){
+    public ResponseEntity<Page<Brand>> listPage(@Param(value = "name") String name, Pageable pageable) {
+        if (name.equals("")) {
             return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
         }
 
@@ -35,28 +39,30 @@ public class BrandController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Brand>> list(){
+    public ResponseEntity<List<Brand>> list() {
         return ResponseEntity.ok(service.listAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Brand> findById(@PathVariable Long id){
+    public ResponseEntity<Brand> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
     }
 
     @GetMapping("/find")  //   /find?name={oque voce digitou para procurar}  - name é a variavel aqui em baixo
-    public ResponseEntity<Brand> findByName(@RequestParam String name){
+    public ResponseEntity<Brand> findByName(@RequestParam String name) {
         return ResponseEntity.ok(service.findByName(name));
     }
-    
+
+    @RolesAllowed("ADMIN")
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    @RolesAllowed("ADMIN")
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Brand obj){
+    public ResponseEntity<Void> replace(@RequestBody Brand obj) {
         service.replace(obj);
         return ResponseEntity.noContent().build();
     }
