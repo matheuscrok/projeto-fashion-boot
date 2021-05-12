@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -41,7 +42,7 @@ public class GalleryImagesController {
     public ResponseEntity<GalleryImages> findById(@PathVariable Long id){
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
     }
-    
+
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);

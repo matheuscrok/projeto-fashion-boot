@@ -33,7 +33,7 @@ public class BrandController {
 
         return ResponseEntity.ok(service.listAllPageName(name, pageable)); //animes?size=5&page=2 - 2 pode mudar
     }
-    @RolesAllowed("user")
+
     @GetMapping
     public ResponseEntity<List<Brand>> list(){
         return ResponseEntity.ok(service.listAll());
