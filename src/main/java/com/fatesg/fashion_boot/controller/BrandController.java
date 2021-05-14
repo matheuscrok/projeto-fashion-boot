@@ -28,7 +28,7 @@ public class BrandController {
         return new ResponseEntity<>(service.save(objeto), HttpStatus.CREATED);
     }
 
-    @RolesAllowed("ADMIN")
+    @RolesAllowed({"ADMIN"})
     @GetMapping("/page")
     public ResponseEntity<Page<Brand>> listPage(@Param(value = "name") String name, Pageable pageable) {
         if (name.equals("")) {

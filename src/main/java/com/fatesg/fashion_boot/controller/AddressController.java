@@ -32,22 +32,26 @@ public class AddressController {
         return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
     }
 
+    @RolesAllowed({"USER", "ADMIN"})
     @GetMapping
     public ResponseEntity<List<Address>> list() {
         return ResponseEntity.ok(service.listAll());
     }
 
+    @RolesAllowed({"USER", "ADMIN"})
     @GetMapping("/{id}")
     public ResponseEntity<Address> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
     }
 
+    @RolesAllowed({"USER", "ADMIN"})
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    @RolesAllowed({"USER", "ADMIN"})
     @PutMapping
     public ResponseEntity<Void> replace(@RequestBody Address obj) {
         service.replace(obj);
