@@ -47,7 +47,7 @@ public class UserController {
         return ResponseEntity.ok(service.listAll());
     }
 
-    @RolesAllowed({"ADMIN", "USER"})
+  //  @RolesAllowed({"ADMIN", "USER"})
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> findById(@PathVariable String id) {
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
