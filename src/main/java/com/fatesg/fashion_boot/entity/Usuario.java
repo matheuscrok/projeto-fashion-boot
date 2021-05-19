@@ -19,6 +19,7 @@ public class Usuario {
     @JoinColumn
     private FormPayment form_payment;
 
+
     @ManyToOne
     @JoinColumn
     private Address address;

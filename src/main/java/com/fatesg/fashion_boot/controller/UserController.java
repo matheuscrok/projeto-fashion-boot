@@ -60,10 +60,10 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @RolesAllowed("ADMIN")
+ //   @RolesAllowed({"ADMIN", "USER"})
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Usuario obj) {
-        service.replace(obj);
+    public ResponseEntity<Void> replace(@RequestBody Usuario usuario) {
+        service.replace(usuario);
         return ResponseEntity.noContent().build();
     }
 

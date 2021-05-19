@@ -38,7 +38,7 @@ public class AddressController {
         return ResponseEntity.ok(service.listAll());
     }
 
-    @RolesAllowed({"USER", "ADMIN"})
+   // @RolesAllowed({"USER", "ADMIN"})
     @GetMapping("/{id}")
     public ResponseEntity<Address> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
