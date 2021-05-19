@@ -22,11 +22,18 @@ public class UserController {
 
     final UserService service;
 
-    @RolesAllowed("ADMIN")
+ //   @RolesAllowed("ADMIN")
     @PostMapping
-    public ResponseEntity<Usuario> save(@RequestBody Usuario objeto) {
-        return new ResponseEntity<>(service.save(objeto), HttpStatus.CREATED);
+    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario) {
+        try {
+            service.findByIdOrThrowRequestException(usuario.getSub());
+        }catch (Exception e){
+            return new ResponseEntity<>(service.save(usuario), HttpStatus.CREATED);
+        }
+        return null;
+
     }
+
 
     @RolesAllowed("ADMIN")
     @GetMapping("/page")
@@ -34,7 +41,7 @@ public class UserController {
         return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
     }
 
-    @RolesAllowed("ADMIN")
+    //@RolesAllowed("ADMIN")
     @GetMapping
     public ResponseEntity<List<Usuario>> list() {
         return ResponseEntity.ok(service.listAll());
@@ -42,13 +49,13 @@ public class UserController {
 
     @RolesAllowed({"ADMIN", "USER"})
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> findById(@PathVariable Long id) {
+    public ResponseEntity<Usuario> findById(@PathVariable String id) {
         return ResponseEntity.ok(service.findByIdOrThrowRequestException(id));
     }
 
     @RolesAllowed("ADMIN")
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

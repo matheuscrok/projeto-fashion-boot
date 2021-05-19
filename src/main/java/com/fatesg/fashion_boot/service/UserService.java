@@ -18,7 +18,6 @@ public class UserService {
     final UserRepository repository;
 
     public Usuario save(Usuario usuario) {
-        usuario.setId(null);
         return repository.save(usuario);
     }
 
@@ -31,13 +30,13 @@ public class UserService {
 
     }
 
-    public Usuario findByIdOrThrowRequestException(Long id) {
+    public Usuario findByIdOrThrowRequestException(String id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Usuario não localizado"));
 
     }
 
 
-    public void delete(Long id) {
+    public void delete(String id) {
         findByIdOrThrowRequestException(id);
         try {
             repository.deleteById(id);
@@ -47,7 +46,7 @@ public class UserService {
     }
 
     public void replace(Usuario objeto) {
-        Usuario categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
+        Usuario categoriaSaved = findByIdOrThrowRequestException(objeto.getSub());
         repository.save(objeto);
 
     }

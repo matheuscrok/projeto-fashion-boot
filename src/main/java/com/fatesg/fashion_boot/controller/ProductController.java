@@ -58,7 +58,7 @@ public class ProductController {
 //    public ResponseEntity<Page<Product>> listPage(Pageable pageable){
 //        return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
 //    }
-    @RolesAllowed("ADMIN")
+
     @GetMapping(value = "/page")
     public ResponseEntity<Page<Product>> listPage(@Param(value = "name") String name, Pageable pageable) {
         if (name == "") {
@@ -68,11 +68,11 @@ public class ProductController {
         return ResponseEntity.ok(service.listAllPageName(name, pageable)); //animes?size=5&page=2 - 2 pode mudar
     }
 
-
     @GetMapping
     public ResponseEntity<List<Product>> list() {
         return ResponseEntity.ok(service.listAll());
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> findById(@PathVariable Long id) {
