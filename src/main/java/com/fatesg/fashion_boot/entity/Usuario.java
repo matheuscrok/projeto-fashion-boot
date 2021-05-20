@@ -20,7 +20,7 @@ public class Usuario {
     private FormPayment form_payment;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Address address;
 

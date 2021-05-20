@@ -46,7 +46,6 @@ public class UserService {
     }
 
     public void replace(Usuario objeto) {
-
         try {
             repository.save(objeto);
         }catch (Exception e){

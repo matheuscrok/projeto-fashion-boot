@@ -60,7 +60,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
- //   @RolesAllowed({"ADMIN", "USER"})
+   // @RolesAllowed({"ADMIN", "USER"})
     @PutMapping
     public ResponseEntity<Void> replace(@RequestBody Usuario usuario) {
         service.replace(usuario);
