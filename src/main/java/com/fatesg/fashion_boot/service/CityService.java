@@ -31,8 +31,8 @@ public class CityService {
 
     }
 
-    public List<City> listAllByStateName(String name){
-        return repository.findAllByStateName(name);
+    public List<City> listAllByStateId(Long id){
+        return repository.findAllByStateId(id);
     }
 
 

@@ -14,8 +14,8 @@ public class City {
 
     private String name;
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
     @JoinColumn
     private State state;
 }

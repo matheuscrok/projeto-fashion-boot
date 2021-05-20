@@ -36,9 +36,9 @@ public class CityController {
         return ResponseEntity.ok(service.listAll());
     }
 
-    @GetMapping("/state/{name}")
-    public ResponseEntity<List<City>> listAllByStateName(@PathVariable String name) {
-        return ResponseEntity.ok(service.listAllByStateName(name));
+    @GetMapping("/state/{id}")
+    public ResponseEntity<List<City>> listAllByStateName(@PathVariable Long id) {
+        return ResponseEntity.ok(service.listAllByStateId(id));
 
     }
 

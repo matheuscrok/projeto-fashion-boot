@@ -15,7 +15,7 @@ public class Usuario {
     private String email;
     private String phone;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private FormPayment form_payment;
 

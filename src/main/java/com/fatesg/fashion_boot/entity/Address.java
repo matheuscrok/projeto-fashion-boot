@@ -16,7 +16,7 @@ public class Address {
     private String complement;
     private String district;
     private String cep;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn
     private City city;
 }
