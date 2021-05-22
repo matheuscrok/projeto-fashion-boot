@@ -32,13 +32,13 @@ public class ItemOrderedController {
         return ResponseEntity.ok(service.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
     }
 
-    @RolesAllowed({"ADMIN", "USER"})
+   @RolesAllowed({"ADMIN", "USER"})
     @GetMapping
     public ResponseEntity<List<ItemOrdered>> list() {
         return ResponseEntity.ok(service.listAll());
     }
 
-    @RolesAllowed({"ADMIN", "USER"})
+   // @RolesAllowed({"ADMIN", "USER"})
     @GetMapping("/orders/{id}")
     public ResponseEntity<List<ItemOrdered>> listAllByOrdemId(@PathVariable Long id) {
         return ResponseEntity.ok(service.listAllByOrdemId(id));

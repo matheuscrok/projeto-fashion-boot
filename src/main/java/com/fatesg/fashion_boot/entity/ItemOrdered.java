@@ -25,7 +25,8 @@ public class ItemOrdered {
     @JoinColumn
     private Product product;
 
-    @JsonIgnore
+
+
     @ManyToOne
     @JoinColumn
     private Ordem ordem;

@@ -60,7 +60,7 @@ public class OrderController {
 //        return ResponseEntity.ok(orderService.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
 //    }
 
-    @RolesAllowed("ADMIN")
+    //@RolesAllowed("ADMIN")
     @GetMapping
     public ResponseEntity<List<Ordem>> list() {
         return ResponseEntity.ok(orderService.listAll());
@@ -93,31 +93,21 @@ public class OrderController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed(millis = 0L)
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public ResponseEntity<Ordem> compra(@RequestPart(value = "formPayment") FormPayment formPayment,
-                                        @RequestPart(value = "address") Address address,
-                                        @RequestPart(value = "usuario") Usuario usuario,
-                                        @RequestPart(value = "itemOrdered") ItemOrdered[] itemOrdered,
+    public ResponseEntity<Ordem> compra(@RequestPart(value = "itemOrdered") ItemOrdered[] itemOrdered,
                                         @RequestPart(value = "ordem") Ordem ordem) {
-        FormPayment paymentSave = this.formPaymentService.save(formPayment);
-        State stateSaved = stateService.findByIdOrThrowRequestException(1L);
-        City citySaved = cityService.findByIdOrThrowRequestException(1L);
-        citySaved.setState(stateSaved);
-        Address adressSave = this.addressService.save(address);
-        adressSave.setCity(citySaved);
-        usuario.setAddress(adressSave);
-        usuario.setForm_payment(paymentSave);
-        Usuario usuarioSave = this.userService.save(usuario);
+
+
         List<ItemOrdered> listaDeCarinho = new ArrayList<>();
         for (ItemOrdered item : itemOrdered) {
+            item.setOrdem(ordem);
             ItemOrdered itemOrderedSave = this.itemOrderedService.save(item);
             listaDeCarinho.add(itemOrderedSave);
         }
         ordem.setItemOrdered(listaDeCarinho);
-        ordem.setUsuario(usuarioSave);
-
         ordem.setDate_purchase(new Date(new java.util.Date().getTime()));
         ordem.setStatus("Pendente");
         Ordem ordemSave = this.orderService.save(ordem);
+
 
         return ResponseEntity.ok().body(ordemSave);
     }
