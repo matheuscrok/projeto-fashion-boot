@@ -60,7 +60,7 @@ public class OrderController {
 //        return ResponseEntity.ok(orderService.listAllPage(pageable)); //animes?size=5&page=2 - 2 pode mudar
 //    }
 
-    //@RolesAllowed("ADMIN")
+    @RolesAllowed("ADMIN")
     @GetMapping
     public ResponseEntity<List<Ordem>> list() {
         return ResponseEntity.ok(orderService.listAll());
