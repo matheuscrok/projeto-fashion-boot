@@ -20,18 +20,18 @@ public class ProductService {
     final ProductRepository repository;
 
     public Product save(Product product) {
-        for (Options opt : product.getOptions()){
+        for (Options opt : product.getOptions()) {
             opt.setProduct(product);
         }
-        for (GalleryImages images : product.getGallery()){
-             images.setProduct(product);
+        for (GalleryImages images : product.getGallery()) {
+            images.setProduct(product);
         }
         return repository.save(product);
     }
 
     public Page<Product> listAllPage(Pageable pageable) {
         return repository.findAll(pageable);
-       // return repository.findByName(name, pageable);
+        // return repository.findByName(name, pageable);
     }
 
     public Page<Product> listAllPageName(String name, Pageable pageable) {
@@ -55,29 +55,33 @@ public class ProductService {
         findByIdOrThrowRequestException(id);
         try {
             repository.deleteById(id);
-        }catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new com.fatesg.fashion_boot.service.exception.DataIntegrityViolationException("Não é posssivel apagar, pois está associada a uma ordem de compra");
         }
     }
 
     public void replace(Product objeto) {
-        for (Options opt : objeto.getOptions()){
+        for (Options opt : objeto.getOptions()) {
             opt.setProduct(objeto);
         }
-        for (GalleryImages images : objeto.getGallery()){
+        for (GalleryImages images : objeto.getGallery()) {
             images.setProduct(objeto);
         }
-       try{
-           findByIdOrThrowRequestException(objeto.getId());
-           repository.save(objeto);
-       }catch (Exception e){
-           System.out.println(e.getMessage());
-       }
+        try {
+            findByIdOrThrowRequestException(objeto.getId());
+            repository.save(objeto);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
-    public List<Product> findProductsByCategoryName(String name){
+    public List<Product> findProductsByCategoryName(String name) {
         return repository.findProductByCategoryName(name);
+    }
+
+    public List<Product> findProductByBrandName(String name) {
+        return repository.findProductByBrandName(name);
     }
 
 }

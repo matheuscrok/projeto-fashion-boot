@@ -65,6 +65,11 @@ public class OrderController {
     public ResponseEntity<List<Ordem>> list() {
         return ResponseEntity.ok(orderService.listAll());
     }
+   // @RolesAllowed("USER")
+    @GetMapping("/usuario/{sub}")
+    public ResponseEntity<List<Ordem>> findAllByUsuarioSub(@PathVariable String sub) {
+        return ResponseEntity.ok(orderService.findAllByUsuarioSub(sub));
+    }
 
     @RolesAllowed({"ADMIN", "USER"})
     @GetMapping("/{id}")

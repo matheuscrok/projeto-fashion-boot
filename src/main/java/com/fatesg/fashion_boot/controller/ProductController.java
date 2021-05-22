@@ -97,6 +97,10 @@ public class ProductController {
     public ResponseEntity<List<Product>> listProductsByCatId(@PathVariable String name) {
         return ResponseEntity.ok(service.findProductsByCategoryName(name));
     }
+    @GetMapping("/marca/{name}")
+    public ResponseEntity<List<Product>> findProductByBrandName(@PathVariable String name) {
+        return ResponseEntity.ok(service.findProductByBrandName(name));
+    }
 
     @RolesAllowed("ADMIN")
     @PostMapping(path = "/salvarfoto", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
