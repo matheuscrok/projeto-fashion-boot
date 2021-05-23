@@ -16,7 +16,7 @@ public class Ordem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date date_purchase;
+    private String date_purchase;
     private String status;
     private Float totalPrice;
 

@@ -1,12 +1,15 @@
 package com.fatesg.fashion_boot.controller;
 
+import com.fatesg.fashion_boot.config.mail.MailService;
 import com.fatesg.fashion_boot.entity.*;
 import com.fatesg.fashion_boot.service.*;
 import com.fatesg.fashion_boot.util.DateUtil;
+import com.fatesg.fashion_boot.util.EmailUtil;
 import com.google.api.client.util.DateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.weaver.ast.Or;
+import org.h2.mvstore.DataUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
@@ -19,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import javax.mail.MessagingException;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,12 +35,8 @@ import java.util.List;
 public class OrderController {
 
     final OrderService orderService;
-    final FormPaymentService formPaymentService;
-    final AddressService addressService;
-    final UserService userService;
     final ItemOrderedService itemOrderedService;
-    final StateService stateService;
-    final CityService cityService;
+    final MailService mailService;
 
 
     @RolesAllowed("USER")
@@ -65,7 +65,8 @@ public class OrderController {
     public ResponseEntity<List<Ordem>> list() {
         return ResponseEntity.ok(orderService.listAll());
     }
-   // @RolesAllowed("USER")
+
+    // @RolesAllowed("USER")
     @GetMapping("/usuario/{sub}")
     public ResponseEntity<List<Ordem>> findAllByUsuarioSub(@PathVariable String sub) {
         return ResponseEntity.ok(orderService.findAllByUsuarioSub(sub));
@@ -100,21 +101,26 @@ public class OrderController {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public ResponseEntity<Ordem> compra(@RequestPart(value = "itemOrdered") ItemOrdered[] itemOrdered,
                                         @RequestPart(value = "ordem") Ordem ordem) {
+        try {
 
-
-        List<ItemOrdered> listaDeCarinho = new ArrayList<>();
-        for (ItemOrdered item : itemOrdered) {
-            item.setOrdem(ordem);
-            ItemOrdered itemOrderedSave = this.itemOrderedService.save(item);
-            listaDeCarinho.add(itemOrderedSave);
+            List<ItemOrdered> listaDeCarinho = new ArrayList<>();
+            for (ItemOrdered item : itemOrdered) {
+                item.setOrdem(ordem);
+                ItemOrdered itemOrderedSave = this.itemOrderedService.save(item);
+                listaDeCarinho.add(itemOrderedSave);
+            }
+            ordem.setItemOrdered(listaDeCarinho);
+            ordem.setDate_purchase((DateUtil.formatLocalDatetime(LocalDateTime.now())));
+            ordem.setStatus("Pendente");
+            Ordem ordemSave = this.orderService.save(ordem);
+            this.mailService.sendEmail(ordemSave.getUsuario().getEmail(), "Compra Realizada", EmailUtil.compraFeita);
+            return ResponseEntity.ok().body(ordemSave);
+        } catch (MessagingException e) {
+            e.printStackTrace();
         }
-        ordem.setItemOrdered(listaDeCarinho);
-        ordem.setDate_purchase(new Date(new java.util.Date().getTime()));
-        ordem.setStatus("Pendente");
-        Ordem ordemSave = this.orderService.save(ordem);
 
 
-        return ResponseEntity.ok().body(ordemSave);
+        return null;
     }
 
 
