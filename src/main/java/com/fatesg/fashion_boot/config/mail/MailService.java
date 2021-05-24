@@ -22,6 +22,8 @@ public class MailService {
             MimeMessage mail = mailSender.createMimeMessage();
 
             MimeMessageHelper helper = new MimeMessageHelper(mail);
+            helper.setFrom("fashionboot.senai@gmail.com", "FASHION BOOT");
+
             helper.setTo(email);
             helper.setSubject(titulo);
             helper.setText(text, true);
