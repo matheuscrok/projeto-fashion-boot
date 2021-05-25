@@ -38,6 +38,9 @@ public class ProductService {
 //        return repository.findAll(pageable);
         return repository.findByName(name, pageable);
     }
+    public List<Product>  findProductByNameLike(String name) {
+        return repository.findProductByNameLike(name);
+    }
 
     public List<Product> listAll() {
         return repository.findAll();

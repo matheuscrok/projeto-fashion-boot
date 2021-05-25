@@ -14,8 +14,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findProductByCategoryName(String name);
 
+    List<Product> findProductByNameLike(String name);
+
     List<Product> findProductByBrandName(String name);
 
     @Query("select u from Product u where u.name like %:#{[0]}% and u.name like %:name%")
     Page<Product> findByName(String name, Pageable pageable);
+
+
 }
