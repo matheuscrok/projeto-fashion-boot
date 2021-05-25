@@ -69,13 +69,13 @@ public class MinioStorageController {
         for (int i = 0; i < file.length; i++) {
             if (i == 0) {
                 minioAdapter.uploadFile(file[i].getOriginalFilename(), file[i].getBytes());
-                String url = this.url + "" + this.bucket + "" + file[i].getOriginalFilename();
+                String url = this.url + "" + this.bucket + "/" + file[i].getOriginalFilename();
                 produto.setImg(url);
 
 
             } else {
                 minioAdapter.uploadFile(file[i].getOriginalFilename(), file[i].getBytes());
-                String url = this.url + "" + this.bucket + "" + file[i].getOriginalFilename();
+                String url = this.url + "" + this.bucket + "/" + file[i].getOriginalFilename();
                 listaDeImagens.add(new GalleryImages(null, url, null));
 
             }
@@ -103,13 +103,13 @@ public class MinioStorageController {
             for (int i = 0; i < file.length; i++) {
                 if (i == 0) {
                     minioAdapter.uploadFile(file[i].getOriginalFilename(), file[i].getBytes());
-                    String url = this.url + "" + this.bucket + "/%20" + file[i].getOriginalFilename();
+                    String url = this.url + "" + this.bucket + "/" + file[i].getOriginalFilename();
                     produto.setImg(url);
 
 
                 } else {
                     minioAdapter.uploadFile(file[i].getOriginalFilename(), file[i].getBytes());
-                    String url = this.url + "" + this.bucket + "/%20" + file[i].getOriginalFilename();
+                    String url = this.url + "" + this.bucket + "/" + file[i].getOriginalFilename();
                     listaDeImagens.add(new GalleryImages(null, url, null));
 
 
