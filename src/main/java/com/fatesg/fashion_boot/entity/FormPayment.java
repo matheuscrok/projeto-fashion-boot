@@ -16,7 +16,6 @@ public class FormPayment {
     private Long id;
     private String holderName;
     private String number;
-    private String flag;
     private String cvv;
     private String validate;
 }
