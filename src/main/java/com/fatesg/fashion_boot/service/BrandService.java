@@ -20,7 +20,7 @@ public class BrandService {
     final BrandRepository repository;
 
     public Brand save(Brand category) {
-        category.setId(null);
+       // category.setId(null);
         return repository.save(category);
     }
 

@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/fashionboot?createDatabaseIfNotExist=true
-    username: watlas
-    password: 171717
+    url: jdbc:mysql://172.17.0.2:3306/fashionboot?createDatabaseIfNotExist=true
+    username: root
+    password: root
 #    data: classpath:data.sql
 #    schema: classpath:data.sql
 #    initialization-mode: always

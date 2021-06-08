@@ -1,15 +1,16 @@
 package com.fatesg.fashion_boot.controller;
 
 import com.fatesg.fashion_boot.config.mail.MailService;
-import com.fatesg.fashion_boot.entity.*;
-import com.fatesg.fashion_boot.service.*;
+import com.fatesg.fashion_boot.entity.ItemOrdered;
+import com.fatesg.fashion_boot.entity.Ordem;
+import com.fatesg.fashion_boot.entity.dto.OrderByDayDTO;
+import com.fatesg.fashion_boot.entity.dto.OrderByStatusDTO;
+import com.fatesg.fashion_boot.entity.dto.SaleByMonthDTO;
+import com.fatesg.fashion_boot.service.ItemOrderedService;
+import com.fatesg.fashion_boot.service.OrderService;
 import com.fatesg.fashion_boot.util.DateUtil;
 import com.fatesg.fashion_boot.util.EmailUtil;
-import com.google.api.client.util.DateTime;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Or;
-import org.h2.mvstore.DataUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
@@ -19,11 +20,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Timed;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.RolesAllowed;
 import javax.mail.MessagingException;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +63,21 @@ public class OrderController {
 //        }
 
         return ResponseEntity.ok(orderService.listAllPageName(name, pageable)); //animes?size=5&page=2 - 2 pode mudar
+    }
+
+    @GetMapping("/sale-by-month")
+    public ResponseEntity<List<SaleByMonthDTO>> findSaleByMonth() {
+        return ResponseEntity.ok(orderService.findSaleByMonth());
+    }
+
+    @GetMapping("/order-by-status")
+    public ResponseEntity<List<OrderByStatusDTO>> findOrderByStatus() {
+        return ResponseEntity.ok(orderService.findOrderByStatus());
+    }
+
+    @GetMapping("/order-by-day")
+    public ResponseEntity<List<OrderByDayDTO>> findOrderByDay() {
+        return ResponseEntity.ok(orderService.findOrderByDay());
     }
 
 //    @GetMapping("/page")

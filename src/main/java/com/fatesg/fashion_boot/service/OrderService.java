@@ -1,7 +1,9 @@
 package com.fatesg.fashion_boot.service;
 
-import com.fatesg.fashion_boot.entity.Brand;
 import com.fatesg.fashion_boot.entity.Ordem;
+import com.fatesg.fashion_boot.entity.dto.OrderByDayDTO;
+import com.fatesg.fashion_boot.entity.dto.OrderByStatusDTO;
+import com.fatesg.fashion_boot.entity.dto.SaleByMonthDTO;
 import com.fatesg.fashion_boot.repository.OrderRepository;
 import com.fatesg.fashion_boot.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -63,6 +65,17 @@ public class OrderService {
         Ordem categoriaSaved = findByIdOrThrowRequestException(objeto.getId());
         repository.save(objeto);
 
+    }
+
+    public List<SaleByMonthDTO> findSaleByMonth(){
+        return repository.findSaleByMonth();
+    }
+
+    public List<OrderByStatusDTO> findOrderByStatus(){
+        return repository.findOrderByStatus();
+    }
+    public List<OrderByDayDTO> findOrderByDay(){
+        return repository.findOrderByDay();
     }
 
 }

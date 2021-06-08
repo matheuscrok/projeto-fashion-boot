@@ -18,7 +18,7 @@ public class CategoryService {
     final CategoriaRepository repository;
 
     public Category save(Category category) {
-        category.setId(null);
+       // category.setId(null);
         return repository.save(category);
     }
 
